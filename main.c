@@ -177,8 +177,8 @@ LONG mHandleEvent (Class *cl, Object *obj, struct MUIP_HandleEvent *msg)
 	{
 		if (msg->imsg->Class == IDCMP_MOUSEMOVE)
 		{
-			data->DeltaX = msg->imsg->MouseX - _mleft(obj) - 20;
-			data->DeltaY = msg->imsg->MouseY - _mtop(obj) - 20;
+			data->DeltaX = msg->imsg->MouseX - _mleft(obj) - SIZE/2;
+			data->DeltaY = msg->imsg->MouseY - _mtop(obj) - SIZE/2;
 			MUI_Redraw(obj, MADF_DRAWOBJECT);
 		}
 	}
@@ -194,14 +194,19 @@ LONG MouseArrowDispatcher(register __a0 Class *cl, register __a2 Object *obj, re
 	{
 		case MUIM_Setup:
 			return (mSetup(cl, obj, msg));
+
 		case MUIM_Cleanup:
 			return (mCleanup(cl, obj, msg));
+
 		case MUIM_AskMinMax:
 			return (mAskMinMax(cl, obj, (struct MUIP_AskMinMax*)msg));
+
 		case MUIM_Draw:
 			return (mDraw(cl, obj, (struct MUIP_Draw*)msg));
+
 		case MUIM_HandleEvent:
 			return (mHandleEvent(cl, obj, (struct MUIP_HandleEvent*)msg));
+
 		default:
 			return (DoSuperMethodA(cl, obj, msg));
 	}
